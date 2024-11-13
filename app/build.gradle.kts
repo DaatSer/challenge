@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    id("de.mannodermaus.android-junit5")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -15,6 +18,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(type = "String", name = "CANDIDATE_ID", value = "\"d6007cf1-58cb-46e4-971b-94d9cbb714d4\"")
     }
 
     buildTypes {
@@ -33,6 +38,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -43,9 +51,17 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.hilt)
     implementation(libs.retrofit.gson)
-    annotationProcessor(libs.hilt.compiler)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+    kapt(libs.hilt.compiler)
 
+    testImplementation(libs.mockk)
     testImplementation(libs.junit.jupiter)
+    testImplementation(libs.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

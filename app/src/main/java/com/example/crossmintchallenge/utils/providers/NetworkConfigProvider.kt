@@ -1,4 +1,4 @@
-package com.example.crossmintchallenge.providers
+package com.example.crossmintchallenge.utils.providers
 
 internal interface NetworkConfigProvider {
 
