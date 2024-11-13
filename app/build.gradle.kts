@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -19,7 +21,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(type = "String", name = "CANDIDATE_ID", value = "\"d6007cf1-58cb-46e4-971b-94d9cbb714d4\"")
+        val localProperties = Properties()
+        localProperties.load(project.rootProject.file("local.properties").inputStream())
+        val candidateId = localProperties.getProperty("candidateId")
+
+        buildConfigField(type = "String", name = "CANDIDATE_ID", value = "\"$candidateId\"")
     }
 
     buildTypes {
